@@ -38,12 +38,12 @@ require 'owenbutler/dr-text-effects/text_effect.rb'
 def tick args
 
   if args.tick_count == 0
-    args.state.wavy = Text.new( {
+    args.state.wavy = WaveHorizontal.new( {
       x: 150, y: 300, text: "The quick brown fox", size_enum: 30,
     })
   end
 
-  args.outputs.sprites << args.state.wavy.wave_h
+  args.outputs.sprites << args.state.wavy.render
 end
 ```
 
