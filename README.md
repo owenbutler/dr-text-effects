@@ -4,7 +4,7 @@ Small library and example code to create text effects in DragonRuby
 
 ### Demo
 
-https://github.com/owenbutler/DR-particles/assets/179979/61dfcc1c-62e3-4a2c-b523-01d9a6e49820
+https://github.com/owenbutler/dr-text-effects/assets/179979/5b378317-beee-48f7-8edc-df743c10c101
 
 The labels used to create the effects above can be found in [main.rb](app/main.rb)
 
