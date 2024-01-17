@@ -1,4 +1,3 @@
-
 class Text
   def initialize label_hash
     @l = label_hash.dup
@@ -29,28 +28,6 @@ class Text
   def reset!
     @created_at = $gtk.args.tick_count
   end
-
-  def slide_v(num: 50, dist: 50, diff: 5, duration: 60, repeat: false, easer: :smooth_stop_quart)
-    slices = []
-    slice_width = @width / num
-    if repeat && expired?(duration, diff, num)
-      reset!
-    end
-    num.times do |index|
-      ease = $gtk.args.easing.ease(@created_at, $gtk.args.tick_count - index * diff, duration, easer)
-      r = ease.remap(0, 1, -dist, 0)
-      a = ease.remap(0, 1, 0, 255)
-      slices << {
-        x: @x + (slice_width * index), y: @y + r,
-        w: slice_width, h: @height,
-        path: @id,
-        source_x: slice_width * index, source_w: slice_width, a: a
-      }
-    end
-
-    return slices
-  end
-
 
   def slide_h(num: 10, dist: 100, diff: 5, duration: 60, repeat: false, easer: :smooth_stop_quart)
     slices = []
@@ -100,6 +77,41 @@ class Text
         w: slice_width, h: @height,
         path: @id,
         source_x: slice_index, source_w: slice_width,
+      }
+    end
+
+    return slices
+  end
+end
+
+class SlideVertical < Text
+
+  def initialize(label_hash, num: 50, dist: 50, diff: 5, duration: 60, repeat: false, easer: :smooth_stop_quart)
+    super(label_hash)
+
+    @num = num
+    @dist = dist
+    @diff = diff
+    @duration = duration
+    @repeat = repeat
+    @easer = easer
+  end
+
+  def render
+    slices = []
+    slice_width = @width / @num
+    if @repeat && expired?(@duration, @diff, @num)
+      reset!
+    end
+    @num.times do |index|
+      ease = $gtk.args.easing.ease(@created_at, $gtk.args.tick_count - index * @diff, @duration, @easer)
+      r = ease.remap(0, 1, -@dist, 0)
+      a = ease.remap(0, 1, 0, 255)
+      slices << {
+        x: @x + (slice_width * index), y: @y + r,
+        w: slice_width, h: @height,
+        path: @id,
+        source_x: slice_width * index, source_w: slice_width, a: a
       }
     end
 

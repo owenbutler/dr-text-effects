@@ -12,8 +12,9 @@ def tick args
   args.outputs.sprites << args.state.wavy_v.wave_v
   args.outputs.sprites << args.state.slide_h.slide_h(repeat: true)
   args.outputs.sprites << args.state.slide_h2.slide_h(dist: -100, repeat: true)
-  args.outputs.sprites << args.state.slide_v.slide_v(dist: -50, repeat: true, diff: 2)
-  args.outputs.sprites << args.state.slide_v2.slide_v(dist: 50, repeat: true, diff: 2)
+  #args.outputs.sprites << args.state.slide_v.slide_v(dist: -50, repeat: true, diff: 2)
+  args.outputs.sprites << args.state.slide_v.render
+  args.outputs.sprites << args.state.slide_v2.render
 
   if args.inputs.keyboard.key_held.backspace
     args.outputs.primitives << args.gtk.framerate_diagnostics_primitives
@@ -33,10 +34,10 @@ def init args
   args.state.slide_h2 = Text.new( {
       x: 150, y: 300, text: "The quick brown slidey text", size_enum: 30, r: 0, g: 0, b: 0,
     } )
-  args.state.slide_v = Text.new( {
+  args.state.slide_v = SlideVertical.new( {
       x: 150, y: 200, text: "The quick brown slidev text", size_enum: 30, r: 0, g: 0, b: 0,
-    } )
-  args.state.slide_v2 = Text.new( {
+    }, dist: -50, repeat: true, diff: 2 )
+  args.state.slide_v2 = SlideVertical.new( {
       x: 150, y: 100, text: "The quick brown slidev text", size_enum: 30, r: 0, g: 0, b: 0,
-    } )
+    }, dist: 50, repeat: true, diff: 2 )
 end
