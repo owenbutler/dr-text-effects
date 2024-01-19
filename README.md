@@ -2,12 +2,6 @@
 
 Small library and example code to create text effects in DragonRuby
 
-### Demo
-
-https://github.com/owenbutler/dr-text-effects/assets/179979/5b378317-beee-48f7-8edc-df743c10c101
-
-The labels used to create the effects above can be found in [main.rb](app/main.rb)
-
 ## Installation
 
 Preferred install is via DragonRuby builtin [download_stb_rb](https://docs.dragonruby.org/#-----download_stb_rb(_raw)-)
@@ -49,8 +43,19 @@ end
 
 ![quick-brown](https://github.com/owenbutler/dr-text-effects/assets/179979/6a655fa9-7697-4cef-beed-84093ab93bd7)
 
+## Effect Types
+
+The following effects are supported:
+
+- WaveHorizontal
+- WaveVertical
+- SlideHorizontal
+- SlideVertical
+
+https://github.com/owenbutler/dr-text-effects/assets/179979/5b378317-beee-48f7-8edc-df743c10c101
+
+The example code used to create the effects above can be found in [main.rb](app/main.rb)
+
 ## TODO
 
-- Add support for resetting effect
 - Add support for non repeating effects
-- Add more expansive examples
