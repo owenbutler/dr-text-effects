@@ -47,7 +47,7 @@ def tick args
 end
 ```
 
-![GIF 19-01-2024 11-26-39 AM](https://github.com/owenbutler/dr-text-effects/assets/179979/3a70ba38-abd3-4628-be1e-7eb71735759a)
+![quick-brown](https://github.com/owenbutler/dr-text-effects/assets/179979/6a655fa9-7697-4cef-beed-84093ab93bd7)
 
 ## TODO
 
