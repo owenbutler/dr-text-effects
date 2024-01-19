@@ -25,14 +25,15 @@ class Text
     $gtk.args.tick_count > @created_at + (duration + diff * num)
   end
 
-  def reset!
+  def play!
     @created_at = $gtk.args.tick_count
+    @playing = true
   end
 end
 
 class SlideVertical < Text
 
-  def initialize(label_hash, num: 50, dist: 50, diff: 5, duration: 60, repeat: false, easer: :smooth_stop_quart)
+  def initialize(label_hash, num: 50, dist: 50, diff: 5, duration: 60, repeat: false, easer: :smooth_stop_quart, autoplay: true)
     super(label_hash)
 
     @num = num
@@ -41,6 +42,7 @@ class SlideVertical < Text
     @duration = duration
     @repeat = repeat
     @easer = easer
+    @playing = autoplay
   end
 
   def render
@@ -48,11 +50,13 @@ class SlideVertical < Text
     slice_width = @width / @num
 
     if expired?(@duration, @diff, @num)
+      @playing = false
       if @repeat
-        reset!
-      else
-        return {x: @x, y: @y, w: @width, h: @height, path: @id}
+        play!
       end
+    end
+    if !@playing
+      return {x: @x, y: @y, w: @width, h: @height, path: @id}
     end
 
     @num.times do |index|
@@ -73,7 +77,7 @@ end
 
 class SlideHorizontal < Text
 
-  def initialize(label_hash, num: 10, dist: 100, diff: 5, duration: 60, repeat: false, easer: :smooth_stop_quart)
+  def initialize(label_hash, num: 10, dist: 100, diff: 5, duration: 60, repeat: false, easer: :smooth_stop_quart, autoplay: true)
     super(label_hash)
 
     @num = num
@@ -82,6 +86,7 @@ class SlideHorizontal < Text
     @duration = duration
     @repeat = repeat
     @easer = easer
+    @playing = autoplay
   end
 
   def render
@@ -89,11 +94,13 @@ class SlideHorizontal < Text
     slice_height = @height / @num
 
     if expired?(@duration, @diff, @num)
+      @playing = false
       if @repeat
-        reset!
-      else
-        return {x: @x, y: @y, w: @width, h: @height, path: @id}
+        play!
       end
+    end
+    if !@playing
+      return {x: @x, y: @y, w: @width, h: @height, path: @id}
     end
 
     @num.times do |index|
