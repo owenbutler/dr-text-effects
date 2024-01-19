@@ -16,7 +16,7 @@ class Text
     @created_at = $gtk.args.tick_count
 
     # render the label into a render target at id
-    $gtk.args.outputs[@id].w = @width
+    $gtk.args.outputs[@id].w = @width + 1
     $gtk.args.outputs[@id].h = @height
     $gtk.args.outputs[@id].labels << @l
   end
@@ -46,9 +46,15 @@ class SlideVertical < Text
   def render
     slices = []
     slice_width = @width / @num
-    if @repeat && expired?(@duration, @diff, @num)
-      reset!
+
+    if expired?(@duration, @diff, @num)
+      if @repeat
+        reset!
+      else
+        return {x: @x, y: @y, w: @width, h: @height, path: @id}
+      end
     end
+
     @num.times do |index|
       ease = $gtk.args.easing.ease(@created_at, $gtk.args.tick_count - index * @diff, @duration, @easer)
       r = ease.remap(0, 1, -@dist, 0)
@@ -81,9 +87,15 @@ class SlideHorizontal < Text
   def render
     slices = []
     slice_height = @height / @num
-    if @repeat && expired?(@duration, @diff, @num)
-      reset!
+
+    if expired?(@duration, @diff, @num)
+      if @repeat
+        reset!
+      else
+        return {x: @x, y: @y, w: @width, h: @height, path: @id}
+      end
     end
+
     @num.times do |index|
       ease = $gtk.args.easing.ease(@created_at, $gtk.args.tick_count - index * @diff, @duration, @easer)
       r = ease.remap(0, 1, -@dist, 0)
