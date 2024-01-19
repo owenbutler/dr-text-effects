@@ -56,6 +56,25 @@ https://github.com/owenbutler/dr-text-effects/assets/179979/5b378317-beee-48f7-8
 
 The example code used to create the effects above can be found in [main.rb](app/main.rb)
 
-## TODO
+## Autoplay
 
-- Add support for non repeating effects
+By default, slide effects will autoplay. If you'd rather control when things play, pass in `autoplay: false` and start the animation with `.play!`
+
+```ruby
+require 'owenbutler/dr-text-effects/text_effect.rb'
+
+def tick args
+
+  if args.tick_count == 0
+    args.state.slide = SlideHorizontal.new( {
+      x: 150, y: 300, text: "The quick brown fox", size_enum: 30,
+    }, autoplay: false )
+  end
+
+  args.outputs.sprites << args.state.slide.render
+
+  if args.inputs.keyboard.key_up.p
+    args.state.slide.play!
+  end
+end
+```
