@@ -47,6 +47,8 @@ def tick args
 end
 ```
 
+![GIF 19-01-2024 11-26-39 AM](https://github.com/owenbutler/dr-text-effects/assets/179979/3a70ba38-abd3-4628-be1e-7eb71735759a)
+
 ## TODO
 
 - Add support for resetting effect
